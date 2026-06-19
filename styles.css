@@ -330,7 +330,7 @@ footer.ft{background:var(--sea-900);color:rgba(214,242,239,.7);padding:74px 0 30
 .ft li a:hover{color:var(--turq-300)}
 .ft .contact-li{display:flex;gap:10px;align-items:flex-start}
 .ft .contact-li svg{width:17px;height:17px;stroke:var(--turq-300);flex:none;margin-top:3px}
-.ft-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:54px;padding-top:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;color:rgba(214,242,239,.5)}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:54px;padding-top:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:5px;color:rgba(214,242,239,.5)}
 
 /* ---------- sticky contact ---------- */
 .sticky-wa{position:fixed;right:22px;bottom:22px;z-index:80;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
