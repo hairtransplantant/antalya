@@ -289,5 +289,65 @@
 
 <script src="image-slot.js"></script>
 <script src="app.js"></script>
+
+<!-- ============ EMAILJS ============ -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function(){
+  // ⚠️ Kendi EmailJS hesap bilgilerinizi buraya girin:
+  // 1) https://www.emailjs.com adresinden ücretsiz kayıt olun
+  // 2) Email Service ekleyin (Gmail vb.) -> SERVICE_ID
+  // 3) Email Template oluşturun -> TEMPLATE_ID (şablonda {{name}}, {{phone}}, {{service}}, {{msg}} alanlarını kullanın)
+  // 4) Account > General sayfasından Public Key'i alın -> PUBLIC_KEY
+  var EMAILJS_PUBLIC_KEY  = "WEU3N5w8PHx66kOpU";
+  var EMAILJS_SERVICE_ID  = "service_r3k64ig";
+  var EMAILJS_TEMPLATE_ID = "template_mz8lngv";
+
+  if (window.emailjs) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  var form = document.querySelector('.cform form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var nameInput  = form.querySelector('[name="name"]');
+    var phoneInput = form.querySelector('[name="phone"]');
+
+    nameInput.parentElement.classList.toggle('invalid', !nameInput.value.trim());
+    phoneInput.parentElement.classList.toggle('invalid', !phoneInput.value.trim());
+    if (!nameInput.value.trim() || !phoneInput.value.trim()) return;
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '...';
+
+    var params = {
+      name:    nameInput.value.trim(),
+      phone:   phoneInput.value.trim(),
+      service: form.querySelector('[name="service"]').value,
+      msg:     form.querySelector('[name="msg"]').value.trim() || '—'
+    };
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+      .then(function(){
+        form.style.display = 'none';
+        var ok = form.parentElement.querySelector('.ok');
+        if (ok) ok.style.display = 'block';
+      })
+      .catch(function(err){
+        console.error('EmailJS error:', err);
+        alert('Заявка не отправлена. Попробуйте ещё раз или свяжитесь с нами по телефону/WhatsApp.');
+      })
+      .finally(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
+  });
+})();
+</script>
 </body>
 </html>
